@@ -8,7 +8,77 @@
 <body>
     
     <script>
-        
+
+        function computerPlay(){
+            let random = Math.floor(Math.random() * 3);
+            let choiceArray = ['rock', 'paper', 'scissors'];
+            return choiceArray[random];
+        }
+
+        function round(playerSelection, computerSelection){
+            playerSelection = playerSelection.toLowerCase();
+
+            function PlayerWin(a, b){
+                return ["Player Wins! " + a + " beats " + b + ".", "win"];
+            }
+            function PlayerLose(a, b){
+                return ["Player Loses! " + a + " beats " + b + ".", "loss"];
+            }
+            function Tie(a){
+                return ["Tie! both used " + a + ".", "tie"];
+            }
+
+            if(playerSelection == computerSelection){
+                return Tie(playerSelection);
+            }
+            else if(playerSelection == 'rock' && computerSelection == 'paper'){
+                return PlayerLose('paper', 'rock');
+            }
+            else if(playerSelection == 'rock' && computerSelection == 'scissors'){
+                return PlayerWin('rock', 'scissors');
+            }
+            else if(playerSelection == 'paper' && computerSelection == 'rock'){
+                return PlayerWin('paper', 'rock');
+            }
+            else if(playerSelection == 'paper' && computerSelection == 'scissors'){
+                return PlayerLose('scissors', 'paper');
+            }
+            else if(playerSelection == 'scissors' && computerSelection == 'paper'){
+                return PlayerWin('scissors', 'paper');
+            }
+            else if(playerSelection == 'scissors' && computerSelection == 'rock'){
+                return PlayerLose('rock', 'scissors');
+            }
+            else{
+                return ['Something went wrong', 'failure'];
+            }
+        }
+
+        function fullGame(){
+            let roundsLeft = 5
+            let playerPoint = 0;
+            let computerPoints = 0;
+            while(roundsLeft > 0){
+                let playerInput = prompt('What do you chose?');
+                while(playerInput.toLowerCase() != 'rock' && playerInput.toLowerCase() != 'paper' && playerInput.toLowerCase() != 'scissors'){
+                    playerInput = prompt("That's not a choice. Please pick one from rock, paper or scissors:")
+                }
+                let Round = round(playerInput.toLowerCase(), computerPlay());
+                console.log(Round[0]);
+                if(Round[1] == 'win'){
+                    playerPoint++;
+                }
+                else if(Round[1] == 'loss'){
+                    computerPoints++;
+                }
+                roundsLeft--;
+            }
+            console.log('Player Points: ' + playerPoint);
+            console.log('Computer Points: ' + computerPoints);
+        }
+
+        fullGame();
+
     </script>
 
 </body>
