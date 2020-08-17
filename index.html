@@ -9,12 +9,14 @@
     
     <script>
 
+        //computer AI to play
         function computerPlay(){
             let random = Math.floor(Math.random() * 3);
             let choiceArray = ['rock', 'paper', 'scissors'];
             return choiceArray[random];
         }
 
+        //simulates 1 round and tells us if the player won, loss or go into a tie
         function round(playerSelection, computerSelection){
             playerSelection = playerSelection.toLowerCase();
 
@@ -54,6 +56,7 @@
             }
         }
 
+        //simulates 5 rounds and reveals the winner
         function fullGame(){
             let roundsLeft = 5
             let playerPoint = 0;
