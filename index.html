@@ -6,8 +6,68 @@
     <title>Document</title>
 </head>
 <body>
+
+    <button class="choice" id="rock">Rock</button>
+
+    <button class="choice" id="paper">Paper</button>
+
+    <button class="choice" id="scissors">Scissors</button>
+
+    <h1 id="playerPoints">qwe</h1>
+    <h1 id="compPoints">qwe</h1>
     
+    <style>
+        #playerPoints{
+            background: red;
+        }
+
+        #compPoints{
+            background: green;
+        }
+    </style>
+
     <script>
+
+        const rockBtn = document.querySelector("#rock");
+        const paperBtn = document.querySelector("#paper");
+        const scissorsBtn = document.querySelector("#scissors");
+
+        let PPh1 = document.querySelector("#playerPoints");
+        let CPh1 = document.querySelector("#compPoints");
+
+        const btns = document.querySelectorAll(".choice");
+        btns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                console.log(btn.id);
+                round(btn.id.toString(), computerPlay());
+            })
+        })
+
+        let playerPoints = 0;
+        let compPoints = 0;
+
+        PPh1.textContent = playerPoints.toString();
+        CPh1.textContent = compPoints.toString();
+
+        //restarts the game
+        function restart(){
+            playerPoints = 0;
+            compPoints = 0;
+            PPh1.textContent = playerPoints.toString();
+            CPh1.textContent = compPoints.toString();
+        }
+
+        //tells who won
+        function tellWon(){
+            if(playerPoints == 5){
+                alert("Player Won");
+                restart();
+            }
+            else if(compPoints == 5){
+                alert("Computer Won");
+                restart();
+            }
+        }
 
         //computer AI to play
         function computerPlay(){
@@ -20,16 +80,24 @@
         function round(playerSelection, computerSelection){
             playerSelection = playerSelection.toLowerCase();
 
+            //tell player text generator
             function PlayerWin(a, b){
+                playerPoints += 1;
+                PPh1.textContent = playerPoints.toString();
+                tellWon();
                 return ["Player Wins! " + a + " beats " + b + ".", "win"];
             }
             function PlayerLose(a, b){
+                compPoints += 1;
+                CPh1.textContent = compPoints.toString();
+                tellWon();
                 return ["Player Loses! " + a + " beats " + b + ".", "loss"];
             }
             function Tie(a){
                 return ["Tie! both used " + a + ".", "tie"];
             }
 
+            //check 
             if(playerSelection == computerSelection){
                 return Tie(playerSelection);
             }
@@ -56,7 +124,7 @@
             }
         }
 
-        //simulates 5 rounds and reveals the winner
+        //simulates 5 rounds and reveals the winner(via console and alerts)
         function fullGame(){
             let roundsLeft = 5
             let playerPoint = 0;
@@ -80,7 +148,7 @@
             console.log('Computer Points: ' + computerPoints);
         }
 
-        fullGame();
+        //fullGame();
 
     </script>
 
